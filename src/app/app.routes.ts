@@ -88,14 +88,7 @@ export const routes: Routes = [
           ),
         title: 'Product',
       },
-      {
-        path: 'details/:slug/:id',
-        loadComponent: () =>
-          import('./features/details/details.component').then(
-            (m) => m.DetailsComponent
-          ),
-        title: 'Details',
-      },
+
       {
         path: 'details/:id',
         loadComponent: () =>
