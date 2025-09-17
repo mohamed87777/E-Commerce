@@ -1,0 +1,29 @@
+<section class="py-10 bg-gradient-to-tr from-[#d1fae5] via-[#f0fdf4] to-[#e0f2f1]">
+  <div class="container mx-auto px-4 py-5">
+  
+<h2 class="text-xl sm:text-4xl md:text-5xl font-black text-[#047857] mb-12 text-center tracking-tight drop-shadow-md">
+      🌟  Shop Popular Categories 🌟
+    </h2>
+
+    <owl-carousel-o [options]="categoriesOptions">
+      @for (category of categoriesList; let i = $index; track category._id) {
+        <ng-template carouselSlide [id]="category._id"  >
+          <div
+          routerLink="/categories"
+            class="bg-white cursor-pointer rounded-xl  h-72 py-8 mx-2 text-center  transition duration-300 animate-fade-in hover:-translate-y-1 border-t-4 border-[#10b981]"
+            [style.animationDelay]="(i * 100) + 'ms'"
+          >
+            <img
+              [src]="category.image"
+              [alt]="category.name"
+              class="w-full h-48 object-cover rounded-lg mb-4 px-2.5 transform transition duration-300 hover:scale-105"
+            />
+            <h3 class="text-xl w-full font-semibold text-[#047857]">
+              {{ category.name }}
+            </h3>
+          </div>
+        </ng-template>
+      }
+    </owl-carousel-o>
+  </div>
+</section>

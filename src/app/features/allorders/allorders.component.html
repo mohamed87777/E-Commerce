@@ -1,0 +1,60 @@
+<section class="py-14 bg-gradient-to-tr from-[#d1fae5] via-[#f0fdf4] to-[#e0f2f1]">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-green-700 dark:text-emerald-400 mb-6 text-center">📦 Your Orders</h2>
+
+    @if (orders.length === 0) {
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 text-center border-t-4 border-yellow-400 dark:border-yellow-600 max-w-sm mx-auto">
+        <i class="fas fa-box-open text-yellow-500 text-4xl mb-4"></i>
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-white">No orders found</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-300">You haven’t placed any orders yet.</p>
+      </div>
+    } @else {
+      <div class="space-y-6">
+        @for (order of orders; track order._id) {
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border-l-4 border-green-500 dark:border-emerald-500">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-lg font-bold text-gray-800 dark:text-white">Order {{order.user.name}}</h3>
+              <span
+                class="px-3 py-1 rounded-full text-xs font-semibold"
+                [ngClass]="{
+                  'bg-green-100 text-green-700': order.isPaid,
+                  'bg-red-100 text-red-600': !order.isPaid
+                }"
+              >
+                {{ order.isPaid ? 'Paid' : 'Unpaid' }}
+              </span>
+            </div>
+
+            <p class="text-sm text-gray-500 dark:text-gray-300 mb-2">
+              <strong>Total:</strong> {{ order.totalOrderPrice }} EGP
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-300 mb-2">
+              <strong>Shipping:</strong> {{ order.shippingAddress?.city }} - {{ order.shippingAddress?.details }}
+            </p>
+            <p class="text-sm text-gray-500 dark:text-gray-300 mb-4">
+              <strong>Payment Method:</strong> {{ order.paymentMethodType }}
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              @for (item of order.cartItems; track item._id) {
+                <div class="flex items-center gap-4 bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                  <img [src]="item.product.imageCover" alt="{{ item.product.title }}" class="w-16 h-16 object-cover rounded-lg" />
+                  <div>
+                    <h4 class="text-sm font-semibold text-gray-800 dark:text-white">{{ item.product.title }}</h4>
+                    <p class="text-xs text-gray-500 dark:text-gray-300">Qty: {{ item.count }} | Price: {{ item.price }} EGP</p>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <p class="text-xs text-gray-400 dark:text-gray-500 mt-4 text-right">
+              Ordered on: {{ order.createdAt }}
+            </p>
+
+            
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>

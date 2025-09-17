@@ -1,0 +1,42 @@
+
+<section class="py-14 bg-gradient-to-tr from-[#d1fae5] via-[#f0fdf4] to-[#e0f2f1]">
+  <div class="container mx-auto px-4">
+    <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-[#047857] mb-12 text-center tracking-tight drop-shadow-md">
+      🌟 Product List 🌟
+    </h2>
+<div class="relative w-full max-w-md mx-auto my-3">
+  <input
+    type="search"
+   [(ngModel)]="text"
+    placeholder="Search..."
+    class="w-full rounded-full border border-gray-300 bg-white px-4 py-2 pr-10 text-sm text-gray-800 shadow-sm
+           focus:border-emerald-500 focus:ring-2 focus:ring-emerald-400
+           dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:border-emerald-400 dark:focus:ring-emerald-500
+           transition duration-300 ease-in-out"
+  />
+  <svg class="absolute right-3 top-2.5 h-5 w-5 text-gray-400 dark:text-gray-300 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2"
+       viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+  </svg>
+</div>
+   <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+      @for (product of productList |paginate: { id: 'foo',
+                                                      itemsPerPage: pageSize,
+                                                      currentPage: p,
+                                                      totalItems: total }|search:text; track product.id) {
+        <app-card [product]="product"></app-card>
+      }
+    </div>
+<div class="flex justify-center mt-8">
+  <pagination-controls
+    id="foo"
+    (pageChange)="getAllProductsData($event)"
+    class="flex gap-2 items-center text-sm font-medium  my-pagination"
+    
+  >
+  </pagination-controls>
+</div>
+
+  </div>
+</section>
+

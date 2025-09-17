@@ -1,0 +1,99 @@
+
+
+<!-- Product Section -->
+<section
+  @fadeIn
+  class="max-w-6xl mx-auto p-6 bg-gradient-to-br from-[#fdfdfd] via-[#f0f4f8] to-[#e2e8f0] rounded-xl shadow-xl"
+>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Image Gallery -->
+    <div>
+      <img
+        [@fadeImage]="selectedImage"
+        [src]="selectedImage || prodetials.imageCover"
+        [alt]="prodetials.title"
+        class="w-full  object-cover rounded-xl shadow-xl border-4 border-green-200 transition-all duration-300"
+      />
+    </div>
+
+    <!-- Product Info -->
+    <div class="space-y-5 text-gray-800">
+      <div class="grid grid-cols-2 gap-3 mt-5">
+        @for (img of prodetials.images; track img) {
+        <img
+          [src]="img"
+          (click)="selectedImage = img"
+          class="h-24 w-full object-cover rounded-md border-2 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border-[#38a169]"
+          [class.border-[#38a169]]="selectedImage === img"
+        />
+        }
+      </div>
+
+      <h2 class="text-4xl font-extrabold text-[#1a202c]">
+        {{ prodetials.title }}
+      </h2>
+      <p class="text-sm text-[#718096] italic">Slug: {{ prodetials.slug }}</p>
+
+      <p class="text-base leading-relaxed text-[#2d3748] whitespace-pre-line">
+        {{ prodetials.description }}
+      </p>
+
+      <div class="text-xl font-bold text-green-700">
+        Price: <span class="text-green-900">EGP {{ prodetials.price }}</span>
+      </div>
+
+      <div class="text-sm text-yellow-600">
+        Rating: ⭐ {{ prodetials.ratingsAverage }} / 5
+        <span class="text-gray-600"
+          >({{ prodetials.ratingsQuantity }} reviews)</span
+        >
+      </div>
+
+      <div class="text-sm text-gray-600">
+        Stock: {{ prodetials.quantity }} | Sold: {{ prodetials.sold }}
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="text-sm font-medium">Category:</span>
+        <img
+          [src]="prodetials.category?.image"
+          class="h-8 w-8 rounded-full border"
+        />
+        <span class="text-sm">{{ prodetials.category?.name }}</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="text-sm font-medium">Brand:</span>
+        <img
+          [src]="prodetials.brand?.image"
+          class="h-8 w-8 rounded-full border"
+        />
+        <span class="text-sm">{{ prodetials.brand?.name }}</span>
+      </div>
+
+      <div class="text-xs text-gray-400">
+        Created: {{ prodetials.createdAt }}
+        <br />
+        Updated: {{ prodetials.updatedAt }}
+      </div>
+
+      <button
+        (click)="addProductItemToCart(prodetials.id)"
+        [@cartClick]="cartClicked ? 'clicked' : 'default'"
+        class="bg-[#38a169] text-white px-5 py-2 rounded-lg hover:bg-[#2f855a] transition shadow-md"
+      >
+        Add to Cart
+      </button>
+
+      <!-- Toast Notification -->
+      @if (cartClicked) {
+      <div
+        class="fixed bottom-5 right-5 bg-green-600 text-white px-4 py-2 rounded shadow-lg animate-bounce"
+      >
+        Added to cart!
+      </div>
+      }
+    </div>
+  </div>
+</section>
+

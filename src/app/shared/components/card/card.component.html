@@ -1,0 +1,58 @@
+<div
+  class="bg-white rounded-3xl overflow-hidden shadow-xl group/card hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 p-4 sm:p-6 flex flex-col justify-between border border-[#d1fae5] hover:border-[#10b981] animate-fade-in w-full max-w-xs sm:max-w-sm mx-auto relative"
+>
+  <!-- Product Details -->
+  <div class="cursor-pointer" (click)="goToDetails(product._id)">
+    <img
+      [src]="product.imageCover"
+      [alt]="product.title"
+      class="w-full h-72 sm:h-72 object-cover rounded-xl mb-3 ring-1 ring-[#a7f3d0] hover:ring-[#10b981] transition duration-300"
+    />
+
+    <div class="space-y-2">
+      <h3 class="text-xs sm:text-sm text-gray-500">
+        Category:
+        <span class="text-[#10b981] font-semibold">
+          {{ product.category?.name || 'Unknown' }}
+        </span>
+      </h3>
+
+      <div class="flex justify-between items-center">
+        <h4 class="text-base sm:text-xl font-bold text-gray-900">
+          {{ product.title.split(' ', 2).join(' ') }}
+        </h4>
+
+        <button
+  (click)="toggleWishlist($event, product._id)"
+  [ngClass]="{
+    'text-red-500': isInWishlist(product._id),
+    'text-gray-400 hover:text-red-500': !isInWishlist(product._id)
+  }"
+  class="cursor-pointer transition duration-300 text-xl"
+  aria-label="Toggle favorites"
+>
+  <i class="fas fa-heart"></i>
+</button>
+
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center mt-5">
+      <span class="text-[#047857] font-bold text-sm sm:text-lg">
+        {{ product.price }} EGP
+      </span>
+      <span class="flex items-center gap-1 text-yellow-500 font-semibold text-sm">
+        <i class="fas fa-star"></i>
+        {{ product.ratingsAverage || 0 }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Add to Cart Button -->
+  <button
+    (click)="addProductItemToCart(product._id)"
+    class="btn cursor-pointer mt-6 bg-gradient-to-r translate-y-[160%] group-hover/card:translate-y-0 from-[#10b981] to-[#059669] text-white py-2 px-3 sm:px-4 rounded-full text-sm sm:text-base font-semibold hover:scale-105 transition duration-300 shadow hover:shadow-md"
+  >
+    Add to Cart
+  </button>
+</div>

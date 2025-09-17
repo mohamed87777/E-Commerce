@@ -1,0 +1,56 @@
+<section class="py-14 bg-gradient-to-tr from-[#d1fae5] via-[#f0fdf4] to-[#e0f2f1]">
+  <div class="container mx-auto px-4">
+    <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-[#047857] mb-12 text-center tracking-tight drop-shadow-md">
+      💚 Your Wishlist
+    </h2>
+
+    @if (wishlistItems.length === 0) {
+<div
+  class="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 text-center border-t-4 border-red-400 dark:border-red-600 max-w-sm mx-auto animate-fade-in"
+>
+  <div class="flex flex-col items-center justify-center space-y-4">
+    <i class="fas fa-heart-broken text-red-500 text-4xl"></i>
+
+    <h3 class="text-lg font-semibold text-gray-700 dark:text-white">No items in your wishlist</h3>
+
+    <p class="text-sm text-gray-500 dark:text-gray-300">
+      You haven’t added any products yet. Start exploring and tap the ❤️ to save your favorites!
+    </p>
+  </div>
+</div>
+
+    } @else {
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        @for (item of wishlistItems; track item._id) {
+          <div
+            class="bg-white rounded-3xl overflow-hidden shadow-xl group/card hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 p-4 sm:p-6 flex flex-col justify-between border border-[#d1fae5] hover:border-[#10b981] animate-fade-in w-full max-w-xs sm:max-w-sm mx-auto relative"
+          >
+            
+
+            <img [src]="item.imageCover" [alt]="item.title" class="w-full h-48 object-cover rounded-lg mb-4" />
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">{{ item.title }}</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-300">{{ item.price }} EGP</p>
+            <button
+                (click)="toggleWishlist(item._id)"
+                [ngClass]="{
+                  'text-red-500': isInWishlist(item._id),
+                  'text-gray-400 hover:text-red-500': !isInWishlist(item._id)
+                }"
+                class="absolute bottom-1/4 right-3 cursor-pointer transition duration-300 text-xl"
+                aria-label="Toggle favorites"
+              >
+                <i class="fas fa-heart"></i>
+              </button>
+            <button
+    (click)="addProductItemToCart(item._id)"
+    class="btn cursor-pointer mt-6 bg-gradient-to-r translate-y-[160%] group-hover/card:translate-y-0 from-[#10b981] to-[#059669] text-white py-2 px-3 sm:px-4 rounded-full text-sm sm:text-base font-semibold hover:scale-105 transition duration-300 shadow hover:shadow-md"
+  >
+    Add to Cart
+  </button>
+
+        </div>      
+        }
+      </div>
+    }
+  </div>
+</section>

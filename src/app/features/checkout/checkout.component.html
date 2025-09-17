@@ -1,0 +1,156 @@
+<section class="py-14 bg-gradient-to-br from-[#e6f4ea] via-[#f0fdf4] to-[#d1fae5]">
+    <div class="max-w-1/2 mx-auto bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700">
+  <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-700 mb-8 text-center drop-shadow-md">
+     CheckOut
+  </h1>
+
+  <form [formGroup]="checkOutForm"  class="space-y-8">
+    
+    <div formGroupName="shippingAddress" class="space-y-6">
+
+      <div class="relative z-0 w-full group">
+        <textarea
+          id="details"
+          formControlName="details"
+          rows="4"
+          placeholder=" "
+          class="block py-5  px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 appearance-none peer focus:outline-none focus:ring-0 focus:border-green-600 dark:text-white dark:focus:border-green-500"
+          [ngClass]="{
+              'border-gray-300 dark:border-gray-600': !detailsControl?.touched,
+              'border-green-500 dark:border-green-400': detailsControl?.valid && detailsControl?.touched,
+              'border-red-500 dark:border-red-400': detailsControl?.invalid && detailsControl?.touched
+            }"
+        ></textarea>
+        <label
+          for="details"
+          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-green-600 peer-focus:dark:text-green-500"
+        >
+          Delivery Details
+        </label>
+        @if (detailsControl?.touched && detailsControl?.errors?.['required']) {
+        <div
+          class="flex items-start gap-2 mt-2 rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-600 dark:bg-red-900/40 dark:text-red-300"
+        >
+          <svg
+            class="h-5 w-5 mt-0.5 flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 9v2m0 4h.01M12 5.5a6.5 6.5 0 106.5 6.5 6.5 6.5 0 00-6.5-6.5z"
+            />
+          </svg>
+          <span>Delivery details are required.</span>
+        </div>
+        }
+      </div>
+
+      <!-- Phone -->
+      <div class="relative z-0 w-full group">
+        <input
+          type="tel"
+          formControlName="phone"
+          id="phone"
+          placeholder=" "
+          class="block py-5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 appearance-none peer focus:outline-none focus:ring-0 focus:border-green-600 dark:text-white dark:focus:border-green-500"
+          [ngClass]="{
+            'border-gray-300 dark:border-gray-600': !phoneControl?.touched,
+            'border-green-500 dark:border-green-400': phoneControl?.valid && phoneControl?.touched,
+            'border-red-500 dark:border-red-400': phoneControl?.invalid && phoneControl?.touched
+          }"
+        />
+        <label
+          for="phone"
+          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-green-600 peer-focus:dark:text-green-500"
+        >
+          Phone Number
+        </label>
+
+        @if (phoneControl?.touched && phoneControl?.errors?.['required']) {
+        <div
+          class="flex items-start gap-2 mt-2 rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-600 dark:bg-red-900/40 dark:text-red-300"
+        >
+          <svg class="h-5 w-5 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 9v2m0 4h.01M12 5.5a6.5 6.5 0 106.5 6.5 6.5 6.5 0 00-6.5-6.5z" />
+          </svg>
+          <span> Phone number is required.</span>
+        </div>
+        }
+
+        @if (phoneControl?.touched && phoneControl?.errors?.['pattern']) {
+        <div
+          class="flex items-start gap-2 mt-2 rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-600 dark:bg-red-900/40 dark:text-red-300"
+        >
+          <svg class="h-5 w-5 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 9v2m0 4h.01M12 5.5a6.5 6.5 0 106.5 6.5 6.5 6.5 0 00-6.5-6.5z" />
+          </svg>
+          <span>Must be a valid Egyptian number (010, 011, 012, 015).</span>
+        </div>
+        }
+      </div>
+
+      <!-- City -->
+      <div class="relative z-0 w-full group">
+        <input
+          type="text"
+          id="city"
+          formControlName="city"
+          placeholder=" "
+          class="block py-5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 appearance-none peer focus:outline-none focus:ring-0 focus:border-green-600 dark:text-white dark:focus:border-green-500"
+          [ngClass]="{
+            'border-gray-300 dark:border-gray-600': !cityControl?.touched,
+            'border-green-500 dark:border-green-400': cityControl?.valid && cityControl?.touched,
+            'border-red-500 dark:border-red-400': cityControl?.invalid && cityControl?.touched
+          }"
+        />
+        <label
+          for="city"
+          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-green-600 peer-focus:dark:text-green-500"
+        >
+          City
+        </label>
+        @if (cityControl?.touched && cityControl?.errors?.['required']) {
+        <div
+          class="flex items-start gap-2 mt-2 rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-600 dark:bg-red-900/40 dark:text-red-300"
+        >
+          <svg class="h-5 w-5 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 9v2m0 4h.01M12 5.5a6.5 6.5 0 106.5 6.5 6.5 6.5 0 00-6.5-6.5z" />
+          </svg>
+          <span> City is required.</span>
+        </div>
+        }
+      </div>
+
+    </div>
+
+    <!-- Submit -->
+<div class="flex justify-center items-center gap-3">
+    <button
+  (click)="submitVisa()"
+      type="submit"
+      class="w-full py-3 text-white cursor-pointer font-bold rounded-xl shadow-lg bg-gradient-to-r from-green-400 via-emerald-500 to-teal-600 hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out"
+    >
+Payment By Visa
+</button>
+
+    <button
+  (click)="submitCash()"
+    type="submit"
+      class="w-full py-3 text-white font-bold cursor-pointer rounded-xl shadow-lg bg-gradient-to-r from-green-400 via-emerald-500 to-teal-600 hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out"
+    >
+Payment By Cash
+</button>
+</div>
+  </form>
+  </div>
+</section>
